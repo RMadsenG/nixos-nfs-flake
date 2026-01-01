@@ -48,11 +48,10 @@
   };
   users.groups.nfsuser = {};
   users.users.ryannfs = {
-    isNormalUser = true;
+    isSystemUser = true;
     description = "Ryan NFS";
     packages = with pkgs; [];
     group = "nfsuser";
-    shell = "/bin/nologin";
   };
   services.openssh = {
     enable = true;
@@ -71,12 +70,10 @@ Match group nfsuser
   };
 
   environment.systemPackages = with pkgs; [
-     util-linux
      vim
      git
      sysstat
   ];
 
   system.stateVersion = "25.11"; # Did you read the comment?
-
 }
