@@ -1,12 +1,6 @@
+Clone/Copy all files to local dir
 ```bash
-parted /dev/sda -- mklabel msdos
-parted /dev/sda -- mkpart primary 1MB -2GB
-parted /dev/sda -- set 1 boot on
-parted /dev/sda -- mkpart primary linux-swap -2GB 100%
-mkfs.ext4 -L nixos /dev/sda1
-mkswap -L swap /dev/sda2
-mount /dev/disk/by-label/nixos /mnt
-swapon /dev/sda2
+nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount disko-config-mbr.nix --yes-wipe-all-disks
 nixos-generate-config --root /mnt/ --flake
 
 # Then overwrite `hardware-configuration.nix` with `/mnt/etx/nixos/hardware-configuration.nix`
@@ -16,5 +10,5 @@ reboot
 ```
 
 Still need to:
-1. Add auth key to ssh folder
-2. Mount NFS Drive
+1. Add auth key to ssh folder for each user `/etc/ssh/authkeys/%u`
+2. Create `/mnt/%u/storage` for each user, and chown own it for same user

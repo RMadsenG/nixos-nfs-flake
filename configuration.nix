@@ -61,7 +61,7 @@
     };
     extraConfig = "
 Match group nfsuser
-   ChrootDirectory /mnt/storage/%u
+   ChrootDirectory /mnt/%u
    AuthorizedKeysFile /etc/ssh/authkeys/%u
    X11Forwarding no
    AllowTcpForwarding no
